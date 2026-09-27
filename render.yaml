@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: upi-wallet-demo
+    runtime: docker
+    plan: free
+    dockerfilePath: ./wallet-app-backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      # Paste the Neon connection string in the Render dashboard (it is not stored in git).
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEMO_MODE
+        value: "true"
+      - key: VPA_SUFFIX
+        value: demoupi
+      - key: JWT_EXPIRES_HOURS
+        value: "12"
